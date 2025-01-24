@@ -1,0 +1,16 @@
+,player_position,now_cost,player_name,teams_name,expected_goals,expected_assists,expected_goals_conceded,minutes,team_xgc_per_game,mean_strength,expected_points
+13,GKP,45,Areola,West Ham,0.0,0.0,1.54,90.0,1.66,1.0,0.92
+5,GKP,45,Arrizabalaga,Bournemouth,0.0,0.0,0.68,90.0,1.14,2.0,1.4
+2,DEF,45,Diego Carlos,Aston Villa,0.0,0.01,0.51,90.0,1.26,2.67,1.2
+12,DEF,46,Van de Ven,Spurs,0.0,0.01,0.78,90.0,1.09,3.0,1.37
+3,DEF,44,Kerkez,Bournemouth,0.02,0.03,0.76,90.0,1.14,2.0,1.62
+11,DEF,49,Udogie,Spurs,0.06,0.03,0.78,90.0,1.09,3.0,1.78
+10,DEF,55,Pedro Porro,Spurs,0.06,0.09,0.8,90.0,1.09,3.0,1.93
+14,MID,55,Georginio,Brighton,0.25,0.1,1.53,70.0,1.76,1.67,1.52
+1,MID,101,Saka,Arsenal,0.05,0.41,0.6,85.0,1.47,3.0,1.62
+9,MID,62,Garnacho,Man Utd,0.31,0.04,0.73,90.0,1.97,3.33,1.75
+0,MID,70,Martinelli,Arsenal,0.39,0.06,0.61,73.0,1.47,3.0,1.91
+6,MID,108,Palmer,Chelsea,0.39,0.1,1.11,90.0,1.48,1.67,2.81
+4,FWD,59,Welbeck,Brighton,0.41,0.02,1.53,84.0,1.76,1.67,1.8
+8,FWD,154,Haaland,Man City,0.45,0.02,0.96,90.0,1.44,2.67,1.92
+7,FWD,57,Vardy,Leicester,0.46,0.01,2.15,90.0,3.03,1.0,2.24
