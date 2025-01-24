@@ -1,0 +1,22 @@
+# features to keep from the players table
+players_table_features: [
+  'id',
+  'web_name',
+  'chance_of_playing_next_round',
+  'element_type',
+  'now_cost',
+  'team_code',
+]
+
+# features to keep from the positions table
+positions_table_features: [
+  'id',
+  'singular_name_short',
+  'squad_select',
+]
+
+# features to keep from the teams table
+teams_table_features: [
+  'code',
+  'name',
+]         
