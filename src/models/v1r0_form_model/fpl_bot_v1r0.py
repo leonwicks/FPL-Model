@@ -14,6 +14,7 @@ from tabulate import tabulate
 from tqdm.auto import tqdm
 import smtplib
 from email.mime.text import MIMEText
+import yaml
 
 logging.basicConfig(level=logging.INFO)
 tqdm.pandas()
@@ -243,7 +244,8 @@ def save_selected_squad(squad):
     current_date = datetime.now().date()
     
     logging.info("Saving squad.")
-    squad.to_csv(r"C:\Users\Leon\Documents\Football Modeling\FPL Model\fpl bot draft 2\squad_{}.csv".format(current_date))
+    save_path = r"meta\squads\squad_{}.csv".format(current_date)
+    squad.to_csv(save_path)
     
 def email_squad(squad):
     """Email the selected squad from a deignated gmail account."""
@@ -265,10 +267,14 @@ def email_squad(squad):
             final_str += player_str
         final_str += buffer_str
 
+    email_details_path = '.gitignore\email credentials.yml'
+    with open(email_details_path, encoding="utf-8") as f:
+        email_details = yaml.safe_load(f)
+
     subject = "Sven Botman's FPL Team of the Week"
-    sender = "sven.fpl.botman@gmail.com"
-    recipients = ["leon.wicks@btinternet.com"]
-    password = "dtwl gdxe oifi zloj"
+    sender = email_details['sender_email']
+    recipients = email_details['recipient_email']
+    pword = email_details['password']
 
 
     msg = MIMEText(final_str)
@@ -276,7 +282,7 @@ def email_squad(squad):
     msg['From'] = sender
     msg['To'] = ', '.join(recipients)
     with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp_server:
-        smtp_server.login(sender, password)
+        smtp_server.login(sender, pword)
         smtp_server.sendmail(sender, recipients, msg.as_string())
     
     logging.info("Email sent!")
