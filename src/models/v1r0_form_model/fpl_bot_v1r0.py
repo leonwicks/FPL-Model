@@ -86,28 +86,18 @@ def process_fpl_data(df_players,
                     ):
     """Reduce the number of columns to only retain desired features. Merge all datasets"""
     # specify columns to persist for each dataframe
+    feature_config_path = r'meta\v1r0\config.yml'
+    with open(feature_config_path, encoding="utf-8") as f:
+        feature_config = yaml.safe_load(f)
+    
     # df_players
-    players_cols_to_keep = [
-        'id',
-        'web_name',
-        'chance_of_playing_next_round',
-        'element_type',
-        'now_cost',
-        'team_code',
-    ]
+    players_cols_to_keep = feature_config['players_table_features']
 
     # df_positions
-    positions_cols_to_keep = [
-        'id',
-        'singular_name_short',
-        'squad_select',
-    ]
+    positions_cols_to_keep = feature_config['positions_table_features']
 
     # df_teams
-    teams_cols_to_keep = [
-        'code',
-        'name',
-    ]         
+    teams_cols_to_keep = feature_config['teams_table_features']
 
     # merge reduced dataframes
     df = df_players[players_cols_to_keep].merge(
@@ -293,6 +283,6 @@ def main():
     df = process_fpl_data(df_players, df_positions, df_teams, df_ppg)
     squad = select_fpl_squad(df, 'mean_ppg')
     save_selected_squad(squad)
-    email_squad(squad)
+    # email_squad(squad)
 
 main()
