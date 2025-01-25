@@ -20,3 +20,10 @@ teams_table_features: [
   'code',
   'name',
 ]         
+
+# features to keep from the points table
+points_table_features: [
+  'element',
+  'total_points',
+  'round',
+]
