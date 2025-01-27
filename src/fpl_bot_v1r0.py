@@ -6,7 +6,6 @@
 
 import logging
 import pandas as pd
-import sys
 from datetime import datetime
 from tabulate import tabulate
 from tqdm.auto import tqdm
@@ -101,4 +100,6 @@ def main():
     save_selected_squad(squad, metric)
     # email_squad(squad, metric)
 
-main()
+    
+if __name__ == '__main__':
+    main()
