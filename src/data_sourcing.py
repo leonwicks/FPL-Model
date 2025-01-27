@@ -62,37 +62,21 @@ def get_fpl_data():
 
 def process_fpl_data(df_players, df_teams, df_positions, df_points):
     """Reduce the number of columns to only retain desired features. Merge all datasets"""
-    # specify columns to persist for each dataframe
-    feature_config_path = r'meta\configuration\config.yml'
-    with open(feature_config_path, encoding="utf-8") as f:
-        feature_config = yaml.safe_load(f)
 
-    # players features
-    players_cols_to_keep = feature_config['players_table_features']
-
-    # teams features
-    teams_cols_to_keep = feature_config['teams_table_features']
-
-    # positions features
-    positions_cols_to_keep = feature_config['positions_table_features']
-
-    # points features
-    points_cols_to_keep = feature_config['points_table_features']
-
-    df_merged = df_players[players_cols_to_keep].merge(
-        df_teams[teams_cols_to_keep],
+    df_merged = df_players.merge(
+        df_teams,
         how='inner',
         left_on='team_code',
         right_on='code',
         suffixes=['','_teams'],
     ).merge(
-        df_positions[positions_cols_to_keep],
+        df_positions,
         how='inner',
         left_on='element_type',
         right_on='id',
         suffixes=['','_pos'],
     ).merge(
-        df_points[points_cols_to_keep],
+        df_points,
         how='inner',
         left_on='id',
         right_on='element',
