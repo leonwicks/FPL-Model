@@ -165,6 +165,13 @@ def process_fpl_data(df_players, df_teams, df_positions, df_points, df_understat
         df_understat['home_team_long_title'] = np.where(df_understat['home_team_long_title'].isin(team_name_mappings.keys()), df_understat['home_team_long_title'].map(team_name_mappings), df_understat['home_team_long_title'])
         df_understat['away_team_long_title'] = np.where(df_understat['away_team_long_title'].isin(team_name_mappings.keys()), df_understat['away_team_long_title'].map(team_name_mappings), df_understat['away_team_long_title'])
 
+        df_understat = df_understat.merge(
+            df_teams[['name','strength']],
+            how='inner',
+            left_on=['away_team_long_title'],
+            right_on=['name']
+        ).rename(columns={'strength':'away_team_strength'})
+
         df_merged['kickoff_date'] = df_merged['kickoff_time'].str[:10]
         df_understat['kickoff_date'] = df_understat['datetime'].str[:10]
 
