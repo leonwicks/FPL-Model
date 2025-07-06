@@ -44,11 +44,11 @@ def save_selected_squad(squad, metric):
                    tablefmt='psql'
                    ))
     
-    current_date = datetime.now().date()
+    # current_date = datetime.now().date()
     
-    logging.info("Saving squad.")
-    save_path = r"meta\squads\squad_{}.csv".format(current_date)
-    squad.to_csv(save_path)
+    # logging.info("Saving squad.")
+    # save_path = r"meta\squads\squad_{}.csv".format(current_date)
+    # squad.to_csv(save_path)
     
 def email_squad(squad, metric):
     """Email the selected squad from a deignated gmail account."""
@@ -70,7 +70,7 @@ def email_squad(squad, metric):
             final_str += player_str
         final_str += buffer_str
 
-    email_details_path = 'meta\configuration\email_credentials.yml'
+    email_details_path = 'meta/configuration/email_credentials.yml'
     with open(email_details_path, encoding="utf-8") as f:
         email_details = yaml.safe_load(f)
 
@@ -92,11 +92,17 @@ def email_squad(squad, metric):
 
 def main():
     num_gws_to_check = 7
-    metric = f'mean_ppg_{num_gws_to_check}'
+    metric = f'mean_total_points_ppg_{num_gws_to_check}'
 
     df = fetch_fpl_data()
+    # Robustly ensure 'round' column is integer for feature engineering
+    df.columns = df.columns.str.strip()  # Remove whitespace from column names
+    if any(col.lower() == 'round' for col in df.columns):
+        round_col = [col for col in df.columns if col.lower() == 'round'][0]
+        df[round_col] = pd.to_numeric(df[round_col], errors='coerce')
+        print(f"[DEBUG] 'round' dtype after conversion:", df[round_col].dtype)
     df = engineer_features(df, num_gws_to_check)
-    squad = select_fpl_squad(df=df, metric=f'mean_ppg_{num_gws_to_check}')
+    squad = select_fpl_squad(df=df, metric=metric)
     save_selected_squad(squad, metric)
     # email_squad(squad, metric)
 
